@@ -25,3 +25,5 @@ The occupation's stats and assigned stats will also be stored as separate object
 I made the displayStats() function so that if I change how the characteristics are displayed later in the project, I only have to look in one place and change it there.
 
 Initially when adding a stat point through manual allocation I had it call displayStats(), this was unnecessary work as it deleted and recreated each characteristic element on every stat allocation, but it was the initial working implementation. I then added a span to separate the number, to allow me to update just the number directly.
+
+I initially had the characteristic elements dynamically created in JavaScript, but I've moved them out to make it easier to add CSS classes (whether custom or from a library) to the elements.

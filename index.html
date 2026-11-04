@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/style.css">
     <title>Investigator Creator</title>
 </head>
+
 <body>
     <div>
         <h1>Investigator Creator</h1>
@@ -24,8 +26,21 @@
         </select>
     </div>
     <div id="character-stats">
-        <!--Player stats go here once JS has parsed them-->
+        <div><span>Points left: </span><span id="manual-points">0</span></div>
+        <div><span>Strength: </span><span id="strength-stat">0</span><button id="strength-down-button">-</button><button
+                id="strength-up-button">+</button></div>
+        <div><span>Dexterity: </span><span id="dexterity-stat">0</span><button
+                id="dexterity-down-button">-</button><button id="dexterity-up-button">+</button></div>
+        <div><span>Intelligence: </span><span id="intelligence-stat">0</span><button
+                id="intelligence-down-button">-</button><button id="intelligence-up-button">+</button></div>
+        <div><span>Perception: </span><span id="perception-stat">0</span><button
+                id="perception-down-button">-</button><button id="perception-up-button">+</button></div>
+        <div><span>Resolve: </span><span id="resolve-stat">0</span><button id="resolve-down-button">-</button><button
+                id="resolve-up-button">+</button></div>
+        <div><span>Occult: </span><span id="occult-stat">0</span><button id="occult-down-button">-</button><button
+                id="occult-up-button">+</button></div>
     </div>
     <script type="module" src="./js/script.js"></script>
 </body>
+
 </html>
