@@ -1,6 +1,17 @@
 const maxStatValue = 10;
 const manualStatPoints = 15;
 
+let pointsRemaining = manualStatPoints;
+
+const allocatedPoints = {
+  Strength: 0,
+  Dexterity: 0,
+  Intelligence: 0,
+  Perception: 0,
+  Resolve: 0,
+  Occult: 0,
+};
+
 const occupation = {
   professor: {
     Strength: 1,
@@ -43,13 +54,50 @@ function displayStats() {
 
   const stats = occupation[selectedValue];
   const statDiv = document.getElementById("character-stats");
+  const manualEl = document.createElement("div");
+  const manualSpan = document.createElement("span");
+
   statDiv.textContent = "";
+  manualEl.textContent = `Points left: `;
+  manualSpan.textContent = `${pointsRemaining}`;
+  statDiv.append(manualEl);
+  manualEl.appendChild(manualSpan);
 
   for (const stat in stats) {
     const statEl = document.createElement("div");
+    const statSpan = document.createElement("span");
+    const statUpButton = document.createElement("button");
+    const statDownButton = document.createElement("button");
 
-    statEl.textContent = `${stat}: ${stats[stat]}`;
+    statEl.textContent = `${stat}: `;
+    statSpan.textContent = `${stats[stat] + allocatedPoints[stat]}`;
+    statUpButton.textContent = `+`;
+    statDownButton.textContent = `-`;
+
+    statUpButton.addEventListener("click", () => {
+      if (stats[stat] + allocatedPoints[stat] < maxStatValue && pointsRemaining > 0) {
+        allocatedPoints[stat] += 1;
+        pointsRemaining -= 1;
+
+        manualSpan.textContent = `${pointsRemaining}`;
+        statSpan.textContent = `${stats[stat] + allocatedPoints[stat]}`;
+      }
+    });
+
+    statDownButton.addEventListener("click", () => {
+      if (allocatedPoints[stat] > 0 && pointsRemaining < manualStatPoints) {
+        allocatedPoints[stat] -= 1;
+        pointsRemaining += 1;
+
+        manualSpan.textContent = `${pointsRemaining}`;
+        statSpan.textContent = `${stats[stat] + allocatedPoints[stat]}`;
+      }
+    });
+
     statDiv.append(statEl);
+    statEl.appendChild(statSpan);
+    statEl.appendChild(statDownButton);
+    statEl.appendChild(statUpButton);
   }
 }
 

@@ -11,7 +11,7 @@ The app is intended to allow a character with a stat block to be created.
 
 - [x] Select an occupation
 - [x] Display the selected occupation's starting characteristics
-- [ ] Manually allocate additional characteristic points
+- [x] Manually allocate additional characteristic points
 - [ ] Randomise point allocation
 - [ ] Display the final investigator's characteristics
 
@@ -22,4 +22,6 @@ The occupation's stats and assigned stats will also be stored as separate object
 
 ## Implementation Decisions
 
-I made the displayStats() function so that if I change how the characteristics are displayed later in the project, I only have to look in one place and change it there. 
+I made the displayStats() function so that if I change how the characteristics are displayed later in the project, I only have to look in one place and change it there.
+
+Initially when adding a stat point through manual allocation I had it call displayStats(), this was unnecessary work as it deleted and recreated each characteristic element on every stat allocation, but it was the initial working implementation. I then added a span to separate the number, to allow me to update just the number directly.
