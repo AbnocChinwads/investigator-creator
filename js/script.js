@@ -58,8 +58,6 @@ function displayStats() {
   for (const stat in stats) {
     const statSpan = document.getElementById(`${stat}-stat`);
 
-    console.log(statSpan);
-
     statSpan.textContent = `${stats[stat] + allocatedPoints[stat]}`;
   }
 }
@@ -94,7 +92,51 @@ function setupStatButtons() {
   }
 }
 
+function resetStats() {
+  const resetButton = document.getElementById("reset-points");
+
+  resetButton.addEventListener("click", () => {
+    for (const stat in allocatedPoints) {
+      allocatedPoints[stat] = 0;
+    }
+
+    pointsRemaining = manualStatPoints;
+
+    displayStats();
+  });
+}
+
+function randomiseStats() {
+  const randomiseButton = document.getElementById("randomise-character");
+  const statNames = Object.keys(allocatedPoints);
+
+  randomiseButton.addEventListener("click", () => {
+    resetStats();
+
+    const stats = occupation[dropDown.value];
+
+    while (
+      pointsRemaining > 0 &&
+      statNames.some(
+        (stat) => stats[stat] + allocatedPoints[stat] < maxStatValue,
+      )
+    ) {
+      const randomStat =
+        statNames[Math.floor(Math.random() * statNames.length)];
+
+      if (stats[randomStat] + allocatedPoints[randomStat] < maxStatValue) {
+        allocatedPoints[randomStat] += 1;
+        pointsRemaining -= 1;
+      }
+    }
+
+    displayStats();
+  });
+}
+
 dropDown.addEventListener("change", displayStats);
 
 setupStatButtons();
 displayStats();
+resetStats();
+randomiseStats();
