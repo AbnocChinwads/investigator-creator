@@ -3,6 +3,7 @@ const manualStatPoints = 15;
 
 let pointsRemaining = manualStatPoints;
 
+// Separation of manual and occupation points preserves the user's input when switching occupations
 const allocatedPoints = {
   strength: 0,
   dexterity: 0,
@@ -48,6 +49,8 @@ const occupation = {
 };
 
 const dropDown = document.querySelector("#occupation");
+const randomiseButton = document.getElementById("randomise-character");
+const resetButton = document.getElementById("reset-points");
 
 function displayStats() {
   const stats = occupation[dropDown.value];
@@ -93,50 +96,49 @@ function setupStatButtons() {
 }
 
 function resetStats() {
-  const resetButton = document.getElementById("reset-points");
+  for (const stat in allocatedPoints) {
+    allocatedPoints[stat] = 0;
+  }
 
-  resetButton.addEventListener("click", () => {
-    for (const stat in allocatedPoints) {
-      allocatedPoints[stat] = 0;
-    }
+  pointsRemaining = manualStatPoints;
 
-    pointsRemaining = manualStatPoints;
-
-    displayStats();
-  });
+  displayStats();
 }
 
 function randomiseStats() {
-  const randomiseButton = document.getElementById("randomise-character");
   const statNames = Object.keys(allocatedPoints);
+  resetStats();
 
-  randomiseButton.addEventListener("click", () => {
-    resetStats();
+  const randomOccupation =
+    dropDown.options[Math.floor(Math.random() * dropDown.options.length)];
 
-    const stats = occupation[dropDown.value];
+  dropDown.value = randomOccupation.value;
 
-    while (
-      pointsRemaining > 0 &&
-      statNames.some(
-        (stat) => stats[stat] + allocatedPoints[stat] < maxStatValue,
-      )
-    ) {
-      const randomStat =
-        statNames[Math.floor(Math.random() * statNames.length)];
+  const stats = occupation[dropDown.value];
 
-      if (stats[randomStat] + allocatedPoints[randomStat] < maxStatValue) {
-        allocatedPoints[randomStat] += 1;
-        pointsRemaining -= 1;
-      }
+  /*
+    The extra condition stops an infinite loop
+    when there are points still to allocate
+    but the stats have reached maxStatValue
+  */
+  while (
+    pointsRemaining > 0 &&
+    statNames.some((stat) => stats[stat] + allocatedPoints[stat] < maxStatValue)
+  ) {
+    const randomStat = statNames[Math.floor(Math.random() * statNames.length)];
+
+    if (stats[randomStat] + allocatedPoints[randomStat] < maxStatValue) {
+      allocatedPoints[randomStat] += 1;
+      pointsRemaining -= 1;
     }
+  }
 
-    displayStats();
-  });
+  displayStats();
 }
 
 dropDown.addEventListener("change", displayStats);
+randomiseButton.addEventListener("click", randomiseStats);
+resetButton.addEventListener("click", resetStats);
 
 setupStatButtons();
 displayStats();
-resetStats();
-randomiseStats();
