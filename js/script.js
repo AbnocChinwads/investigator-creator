@@ -51,6 +51,8 @@ const occupation = {
 const dropDown = document.querySelector("#occupation");
 const randomiseButton = document.getElementById("randomise-character");
 const resetButton = document.getElementById("reset-points");
+const investigatorForm = document.getElementById("investigator-form");
+const warningEl = document.getElementById("warning-messages");
 
 function displayStats() {
   const stats = occupation[dropDown.value];
@@ -136,9 +138,52 @@ function randomiseStats() {
   displayStats();
 }
 
+function createInvestigator() {
+  const name = document.getElementById("investigator-name").value.trim();
+  const selectedOccupation = dropDown.value;
+  const stats = occupation[dropDown.value];
+  const finalStats = {};
+
+  for (const stat in stats) {
+    finalStats[stat] = stats[stat] + allocatedPoints[stat];
+  }
+
+  if (pointsRemaining > 0) {
+    warningEl.textContent = "You have points to allocate";
+    return;
+  }
+
+  for (const stat in finalStats) {
+    if (finalStats[stat] > maxStatValue) {
+      warningEl.textContent = `${stat} exceeds ${maxStatValue}, please reduce it`;
+      return;
+    }
+  }
+
+  warningEl.textContent = "";
+
+  const investigatorEl = document.getElementById("investigator-sheet");
+
+  investigatorEl.innerHTML = `
+  <div>
+    <h3>${name}</h3>
+  </div>
+  <div>
+    <p>Occupation: ${selectedOccupation}</p>
+  </div>
+  <div>
+    <p>${JSON.stringify(finalStats)}</p>
+  </div>
+  `;
+}
+
 dropDown.addEventListener("change", displayStats);
 randomiseButton.addEventListener("click", randomiseStats);
 resetButton.addEventListener("click", resetStats);
+investigatorForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  createInvestigator();
+});
 
 setupStatButtons();
 displayStats();
