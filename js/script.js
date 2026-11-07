@@ -172,7 +172,8 @@ function createInvestigator() {
     <p>Occupation: ${selectedOccupation}</p>
   </div>
   <div>
-    <p>${JSON.stringify(finalStats)}</p>
+  ${Object.entries(finalStats).map(([key, value]) =>
+    `<p>${key}: ${value}</p>`).join("")}
   </div>
   `;
 }
