@@ -1,62 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./js/colourModeToggle.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/style.css">
     <title>Investigator Creator</title>
 </head>
 
 <body>
-    <div>
-        <h1>Investigator Creator</h1>
-    </div>
-    <div>
-        <form id="investigator-form">
-            <div>
-                <label for="investigator-name">Investigator Name:</label>
-                <input type="text" name="investigator name" id="investigator-name" required>
-            </div>
-            <div>
-                <label for="occupation">Occupation</label>
-                <select name="occupation" id="occupation">
-                    <option value="professor">Professor</option>
-                    <option value="labourer">Labourer</option>
-                    <option value="detective">Detective</option>
-                    <option value="fortuneTeller">Fortune Teller</option>
-                </select>
-            </div>
-            <div id="character-stats">
-                <div><span>Points left: </span><span id="manual-points">0</span></div>
-                <div><span>Strength: </span><span id="strength-stat">0</span><button type="button"
-                        id="strength-down-button">-</button><button type="button" id="strength-up-button">+</button>
-                </div>
-                <div><span>Dexterity: </span><span id="dexterity-stat">0</span><button type="button"
-                        id="dexterity-down-button">-</button><button type="button" id="dexterity-up-button">+</button>
-                </div>
-                <div><span>Intelligence: </span><span id="intelligence-stat">0</span><button type="button"
-                        id="intelligence-down-button">-</button><button type="button"
-                        id="intelligence-up-button">+</button></div>
-                <div><span>Perception: </span><span id="perception-stat">0</span><button type="button"
-                        id="perception-down-button">-</button><button type="button" id="perception-up-button">+</button>
-                </div>
-                <div><span>Resolve: </span><span id="resolve-stat">0</span><button type="button"
-                        id="resolve-down-button">-</button><button type="button" id="resolve-up-button">+</button></div>
-                <div><span>Occult: </span><span id="occult-stat">0</span><button type="button"
-                        id="occult-down-button">-</button><button type="button" id="occult-up-button">+</button></div>
-                <button type="button" id="randomise-character">Randomise</button>
-                <button type="button" id="reset-points">Reset Allocation</button>
-            </div>
-            <button type="submit" id="create-investigator">Create Investigator</button>
-        </form>
+    <div class="container-fluid">
         <div>
-            <p style="color: red;" id="warning-messages"></p>
+            <h1>Investigator Creator</h1>
+        </div>
+        <div>
+            <form id="investigator-form" class="needs-validation" novalidate>
+                <div class="form-floating mb-3">
+                    <input type="text" name="investigator name" id="investigator-name" class="form-control"
+                        placeholder="character name" required>
+                    <label for="investigator-name">Investigator Name</label>
+                    <div class="invalid-feedback">Please give your Investigator a name</div>
+                </div>
+                <div class="mb-3">
+                    <label for="occupation" class="form-label">Occupation</label>
+                    <select name="occupation" id="occupation" class="form-select" required>
+                        <option value="professor">Professor</option>
+                        <option value="labourer">Labourer</option>
+                        <option value="detective">Detective</option>
+                        <option value="fortuneTeller">Fortune Teller</option>
+                    </select>
+                </div>
+                <div id="character-stats" class="mb-3">
+                    <div><span>Points left: </span><span id="manual-points">0</span>
+                        <div id="points-warning" class="invalid-feedback" role="alert">You still have points to spend
+                        </div>
+                    </div>
+                    <div><span>Strength: </span><span id="strength-stat">0</span><button type="button"
+                            id="strength-down-button" class="btn btn-sm btn-danger mx-1">-</button><button type="button"
+                            id="strength-up-button" class="btn btn-sm btn-success">+</button>
+                    </div>
+                    <div><span>Dexterity: </span><span id="dexterity-stat">0</span><button type="button"
+                            id="dexterity-down-button" class="btn btn-sm btn-danger mx-1">-</button><button
+                            type="button" id="dexterity-up-button" class="btn btn-sm btn-success">+</button>
+                    </div>
+                    <div><span>Intelligence: </span><span id="intelligence-stat">0</span><button type="button"
+                            id="intelligence-down-button" class="btn btn-sm btn-danger mx-1">-</button><button
+                            type="button" id="intelligence-up-button" class="btn btn-sm btn-success">+</button></div>
+                    <div><span>Perception: </span><span id="perception-stat">0</span><button type="button"
+                            id="perception-down-button" class="btn btn-sm btn-danger mx-1">-</button><button
+                            type="button" id="perception-up-button" class="btn btn-sm btn-success">+</button>
+                    </div>
+                    <div><span>Resolve: </span><span id="resolve-stat">0</span><button type="button"
+                            id="resolve-down-button" class="btn btn-sm btn-danger mx-1">-</button><button type="button"
+                            id="resolve-up-button" class="btn btn-sm btn-success">+</button>
+                    </div>
+                    <div><span>Occult: </span><span id="occult-stat">0</span><button type="button"
+                            id="occult-down-button" class="btn btn-sm btn-danger mx-1">-</button><button type="button"
+                            id="occult-up-button" class="btn btn-sm btn-success">+</button>
+                    </div>
+                    <div class="my-2">
+                        <button type="button" id="randomise-character" class="btn">Randomise</button>
+                        <button type="button" id="reset-points" class="btn btn-outline-warning">Reset
+                            Allocation</button>
+                    </div>
+                </div>
+                <button type="submit" id="create-investigator" class="btn btn-primary">Create Investigator</button>
+            </form>
+            <div>
+                <p id="warning-messages" class="text-warning"></p>
+            </div>
+        </div>
+        <div>
+            <div id="investigator-sheet"></div>
         </div>
     </div>
-    <div>
-        <div id="investigator-sheet"></div>
-    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
     <script type="module" src="./js/script.js"></script>
 </body>
 

@@ -53,10 +53,16 @@ const randomiseButton = document.getElementById("randomise-character");
 const resetButton = document.getElementById("reset-points");
 const investigatorForm = document.getElementById("investigator-form");
 const warningEl = document.getElementById("warning-messages");
+const pointsWarningEl = document.getElementById("points-warning");
 
 function displayStats() {
   const stats = occupation[dropDown.value];
   const manualSpan = document.getElementById("manual-points");
+
+  pointsWarningEl.classList.toggle(
+    "d-block",
+    pointsRemaining > 0 && investigatorForm.classList.contains("was-validated"),
+  );
 
   manualSpan.textContent = `${pointsRemaining}`;
 
@@ -149,7 +155,6 @@ function createInvestigator() {
   }
 
   if (pointsRemaining > 0) {
-    warningEl.textContent = "You have points to allocate";
     return;
   }
 
@@ -172,8 +177,9 @@ function createInvestigator() {
     <p>Occupation: ${selectedOccupation}</p>
   </div>
   <div>
-  ${Object.entries(finalStats).map(([key, value]) =>
-    `<p>${key}: ${value}</p>`).join("")}
+  ${Object.entries(finalStats)
+    .map(([key, value]) => `<p>${key}: ${value}</p>`)
+    .join("")}
   </div>
   `;
 }
@@ -183,6 +189,13 @@ randomiseButton.addEventListener("click", randomiseStats);
 resetButton.addEventListener("click", resetStats);
 investigatorForm.addEventListener("submit", (event) => {
   event.preventDefault();
+  investigatorForm.classList.add("was-validated");
+  displayStats();
+
+  if (!investigatorForm.checkValidity()) {
+    return;
+  }
+
   createInvestigator();
 });
 
