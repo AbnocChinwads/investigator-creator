@@ -12,8 +12,8 @@ The app is intended to allow a character with a stat block to be created.
 - [x] Select an occupation
 - [x] Display the selected occupation's starting characteristics
 - [x] Manually allocate additional characteristic points
-- [ ] Randomise point allocation
-- [ ] Display the final investigator's characteristics
+- [x] Randomise point allocation
+- [x] Display the final investigator's characteristics
 
 ## Initial Design Decisions
 

@@ -54,6 +54,7 @@ const resetButton = document.getElementById("reset-points");
 const investigatorForm = document.getElementById("investigator-form");
 const warningEl = document.getElementById("warning-messages");
 const pointsWarningEl = document.getElementById("points-warning");
+const nameInput = document.getElementById("investigator-name");
 
 function displayStats() {
   const stats = occupation[dropDown.value];
@@ -144,6 +145,14 @@ function randomiseStats() {
   displayStats();
 }
 
+function validateName() {
+  if (nameInput.value.trim() === "") {
+    nameInput.setCustomValidity("Please give your Investigator a name");
+  } else {
+    nameInput.setCustomValidity("");
+  }
+}
+
 function createInvestigator() {
   const name = document.getElementById("investigator-name").value.trim();
   const selectedOccupation = dropDown.selectedOptions[0].text;
@@ -170,46 +179,54 @@ function createInvestigator() {
   const investigatorEl = document.getElementById("investigator-sheet");
 
   investigatorEl.innerHTML = `
-  <div class="card mt-4">
-    <div class="card-header">
-      <h3 class="mb-0 text-center">${name}</h3>
-    </div>
+    <div class="card mt-4">
+      <div class="card-header">
+        <h3 id="generated-investigator-name" class="mb-0 text-center"></h3>
+      </div>
 
-    <div class="card-body">
-      <p class="card-text text-center">
-        Occupation: ${selectedOccupation}
-      </p>
+      <div class="card-body">
+        <p class="card-text text-center">
+          Occupation: ${selectedOccupation}
+        </p>
 
-      <div class="row row-cols-2 row-cols-sm-3 g-2">
-        ${Object.entries(finalStats)
-          .map(
-            ([key, value]) => `
-            <div class="col">
-              <div class="border rounded p-2 text-center">
-                <div class="text-body-secondary">
-                  ${key}
-                </div>
-                <div class="fs-4 fw-semibold text-capitalize">
-                  ${value}
+        <div class="row row-cols-2 row-cols-sm-3 g-2">
+          ${Object.entries(finalStats)
+            .map(
+              ([key, value]) => `
+              <div class="col">
+                <div class="border rounded p-2 text-center">
+                  <div class="text-body-secondary">
+                    ${key}
+                  </div>
+                  <div class="fs-4 fw-semibold text-capitalize">
+                    ${value}
+                  </div>
                 </div>
               </div>
-            </div>
-          `,
-          )
-          .join("")}
+            `,
+            )
+            .join("")}
+        </div>
       </div>
     </div>
-  </div>
-`;
+  `;
+
+  const generatedNameEl = investigatorEl.querySelector(
+    "#generated-investigator-name",
+  );
+
+  generatedNameEl.textContent = name;
 }
 
 dropDown.addEventListener("change", displayStats);
+nameInput.addEventListener("input", validateName);
 randomiseButton.addEventListener("click", randomiseStats);
 resetButton.addEventListener("click", resetStats);
 investigatorForm.addEventListener("submit", (event) => {
   event.preventDefault();
   investigatorForm.classList.add("was-validated");
   displayStats();
+  validateName();
 
   if (!investigatorForm.checkValidity()) {
     return;
