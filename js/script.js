@@ -146,7 +146,7 @@ function randomiseStats() {
 
 function createInvestigator() {
   const name = document.getElementById("investigator-name").value.trim();
-  const selectedOccupation = dropDown.value;
+  const selectedOccupation = dropDown.selectedOptions[0].text;
   const stats = occupation[dropDown.value];
   const finalStats = {};
 
@@ -160,7 +160,7 @@ function createInvestigator() {
 
   for (const stat in finalStats) {
     if (finalStats[stat] > maxStatValue) {
-      warningEl.textContent = `${stat} exceeds ${maxStatValue}, please reduce it`;
+      warningEl.innerHTML = `<p class="text-capitalize text-warning card-text text-center">${stat} exceeds ${maxStatValue}</p><p class="text-capitalize text-warning card-text text-center">please reduce it</p>`;
       return;
     }
   }
@@ -170,18 +170,37 @@ function createInvestigator() {
   const investigatorEl = document.getElementById("investigator-sheet");
 
   investigatorEl.innerHTML = `
-  <div>
-    <h3>${name}</h3>
+  <div class="card mt-4">
+    <div class="card-header">
+      <h3 class="mb-0 text-center">${name}</h3>
+    </div>
+
+    <div class="card-body">
+      <p class="card-text text-center">
+        Occupation: ${selectedOccupation}
+      </p>
+
+      <div class="row row-cols-2 row-cols-sm-3 g-2">
+        ${Object.entries(finalStats)
+          .map(
+            ([key, value]) => `
+            <div class="col">
+              <div class="border rounded p-2 text-center">
+                <div class="text-body-secondary">
+                  ${key}
+                </div>
+                <div class="fs-4 fw-semibold text-capitalize">
+                  ${value}
+                </div>
+              </div>
+            </div>
+          `,
+          )
+          .join("")}
+      </div>
+    </div>
   </div>
-  <div>
-    <p>Occupation: ${selectedOccupation}</p>
-  </div>
-  <div>
-  ${Object.entries(finalStats)
-    .map(([key, value]) => `<p>${key}: ${value}</p>`)
-    .join("")}
-  </div>
-  `;
+`;
 }
 
 dropDown.addEventListener("change", displayStats);

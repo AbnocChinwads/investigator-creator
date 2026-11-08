@@ -7,79 +7,140 @@
     <script src="./js/colourModeToggle.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="./css/style.css">
     <title>Investigator Creator</title>
 </head>
 
 <body>
-    <div class="container-fluid">
-        <div>
+    <div class="container">
+        <div class="text-center g-3">
             <h1>Investigator Creator</h1>
         </div>
-        <div>
+        <div class="card mt-4">
             <form id="investigator-form" class="needs-validation" novalidate>
-                <div class="form-floating mb-3">
-                    <input type="text" name="investigator name" id="investigator-name" class="form-control"
-                        placeholder="character name" required>
-                    <label for="investigator-name">Investigator Name</label>
-                    <div class="invalid-feedback">Please give your Investigator a name</div>
+                <!--Investigator Name & Occupation-->
+                <div class="card-header">
+                    <div class="form-floating mb-3">
+                        <input type="text" name="investigator name" id="investigator-name" class="form-control"
+                            placeholder="character name" required>
+                        <label for="investigator-name">Investigator Name</label>
+                        <div class="invalid-feedback">Please give your Investigator a name</div>
+                    </div>
+                    <div class="mb-3 text-center">
+                        <label for="occupation" class="form-label">Occupation</label>
+                        <select name="occupation" id="occupation" class="form-select" required>
+                            <option value="professor">Professor</option>
+                            <option value="labourer">Labourer</option>
+                            <option value="detective">Detective</option>
+                            <option value="fortuneTeller">Fortune Teller</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="occupation" class="form-label">Occupation</label>
-                    <select name="occupation" id="occupation" class="form-select" required>
-                        <option value="professor">Professor</option>
-                        <option value="labourer">Labourer</option>
-                        <option value="detective">Detective</option>
-                        <option value="fortuneTeller">Fortune Teller</option>
-                    </select>
+                <!--Stats & Points-->
+                <!--Manual Points-->
+                <div class="col">
+                    <div id="character-stats" class="border rounded p-2 text-center">
+                        <div class="text-capitalize text-body-secondary">
+                            <span>Points left: </span>
+                        </div>
+                        <div class="fs-4 fw-semibold"><span id="manual-points">0</span></div>
+                        <div id="points-warning" class="invalid-feedback" role="alert">You still have points to
+                            spend</div>
+                    </div>
                 </div>
-                <div id="character-stats" class="mb-3">
-                    <div><span>Points left: </span><span id="manual-points">0</span>
-                        <div id="points-warning" class="invalid-feedback" role="alert">You still have points to spend
+                <div class="row row-cols-2 row-cols-sm-3 g-2">
+                    <!--Strength-->
+                    <div class="col">
+                        <div class="border rounded p-2 text-center">
+                            <div class="text-capitalize text-body-secondary">
+                                <span class="stat-label">Strength: </span>
+                            </div>
+                            <div class="fs-4 fw-semibold"><span id="strength-stat" class="stat-value">0</span></div>
+                            <button type="button" id="strength-down-button"
+                                class="btn btn-sm btn-danger mx-2">-</button><button type="button"
+                                id="strength-up-button" class="btn btn-sm btn-success">+</button>
                         </div>
                     </div>
-                    <div><span>Strength: </span><span id="strength-stat">0</span><button type="button"
-                            id="strength-down-button" class="btn btn-sm btn-danger mx-1">-</button><button type="button"
-                            id="strength-up-button" class="btn btn-sm btn-success">+</button>
+                    <!--Dexterity-->
+                    <div class="col">
+                        <div class="border rounded p-2 text-center">
+                            <div class="text-capitalize text-body-secondary">
+                                <span class="stat-label">Dexterity: </span>
+                            </div>
+                            <div class="fs-4 fw-semibold"><span id="dexterity-stat" class="stat-value">0</span></div>
+                            <button type="button" id="dexterity-down-button"
+                                class="btn btn-sm btn-danger mx-2">-</button><button type="button"
+                                id="dexterity-up-button" class="btn btn-sm btn-success">+</button>
+                        </div>
                     </div>
-                    <div><span>Dexterity: </span><span id="dexterity-stat">0</span><button type="button"
-                            id="dexterity-down-button" class="btn btn-sm btn-danger mx-1">-</button><button
-                            type="button" id="dexterity-up-button" class="btn btn-sm btn-success">+</button>
+                    <!--Intelligence-->
+                    <div class="col">
+                        <div class="border rounded p-2 text-center">
+                            <div class="text-capitalize text-body-secondary">
+                                <span class="stat-label">Intelligence: </span>
+                            </div>
+                            <div class="fs-4 fw-semibold"><span id="intelligence-stat" class="stat-value">0</span></div>
+                            <button type="button" id="intelligence-down-button"
+                                class="btn btn-sm btn-danger mx-2">-</button><button type="button"
+                                id="intelligence-up-button" class="btn btn-sm btn-success">+</button>
+                        </div>
                     </div>
-                    <div><span>Intelligence: </span><span id="intelligence-stat">0</span><button type="button"
-                            id="intelligence-down-button" class="btn btn-sm btn-danger mx-1">-</button><button
-                            type="button" id="intelligence-up-button" class="btn btn-sm btn-success">+</button></div>
-                    <div><span>Perception: </span><span id="perception-stat">0</span><button type="button"
-                            id="perception-down-button" class="btn btn-sm btn-danger mx-1">-</button><button
-                            type="button" id="perception-up-button" class="btn btn-sm btn-success">+</button>
+                    <!--Perception-->
+                    <div class="col">
+                        <div class="border rounded p-2 text-center">
+                            <div class="text-capitalize text-body-secondary">
+                                <span class="stat-label">Perception: </span>
+                            </div>
+                            <div class="fs-4 fw-semibold"><span id="perception-stat" class="stat-value">0</span></div>
+                            <button type="button" id="perception-down-button"
+                                class="btn btn-sm btn-danger mx-2">-</button><button type="button"
+                                id="perception-up-button" class="btn btn-sm btn-success">+</button>
+                        </div>
                     </div>
-                    <div><span>Resolve: </span><span id="resolve-stat">0</span><button type="button"
-                            id="resolve-down-button" class="btn btn-sm btn-danger mx-1">-</button><button type="button"
-                            id="resolve-up-button" class="btn btn-sm btn-success">+</button>
+                    <!--Resolve-->
+                    <div class="col">
+                        <div class="border rounded p-2 text-center">
+                            <div class="text-capitalize text-body-secondary">
+                                <span class="stat-label">Resolve: </span>
+                            </div>
+                            <div class="fs-4 fw-semibold"><span id="resolve-stat" class="stat-value">0</span>
+                            </div>
+                            <button type="button" id="resolve-down-button"
+                                class="btn btn-sm btn-danger mx-2">-</button><button type="button"
+                                id="resolve-up-button" class="btn btn-sm btn-success">+</button>
+                        </div>
                     </div>
-                    <div><span>Occult: </span><span id="occult-stat">0</span><button type="button"
-                            id="occult-down-button" class="btn btn-sm btn-danger mx-1">-</button><button type="button"
-                            id="occult-up-button" class="btn btn-sm btn-success">+</button>
-                    </div>
-                    <div class="my-2">
-                        <button type="button" id="randomise-character" class="btn">Randomise</button>
-                        <button type="button" id="reset-points" class="btn btn-outline-warning">Reset
-                            Allocation</button>
+                    <!--Occult-->
+                    <div class="col">
+                        <div class="border rounded p-2 text-center">
+                            <div class="text-capitalize text-body-secondary">
+                                <span class="stat-label">Occult: </span>
+                            </div>
+                            <div class="fs-4 fw-semibold"><span id="occult-stat" class="stat-value">0</span></div>
+                            <button type="button" id="occult-down-button"
+                                class="btn btn-sm btn-danger mx-2">-</button><button type="button" id="occult-up-button"
+                                class="btn btn-sm btn-success">+</button>
+                        </div>
                     </div>
                 </div>
-                <button type="submit" id="create-investigator" class="btn btn-primary">Create Investigator</button>
+                <div class="col">
+                    <div class="border rounded p-2 text-center">
+                        <button type="button" id="randomise-character"
+                            class="btn btn-outline-warning">Randomise</button>
+                        <button type="button" id="reset-points" class="btn btn-outline-danger">Reset
+                            Allocation</button>
+                    </div>
+                    <div class="border rounded p-2 text-center">
+                        <button type="submit" id="create-investigator" class="btn btn-primary">Create
+                            Investigator</button>
+                    </div>
+                </div>
+                <div id="warning-messages" class="p-2"></div>
             </form>
-            <div>
-                <p id="warning-messages" class="text-warning"></p>
-            </div>
         </div>
         <div>
             <div id="investigator-sheet"></div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous"></script>
     <script type="module" src="./js/script.js"></script>
 </body>
 
