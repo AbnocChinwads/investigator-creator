@@ -169,7 +169,11 @@ function createInvestigator() {
 
   for (const stat in finalStats) {
     if (finalStats[stat] > maxStatValue) {
-      warningEl.innerHTML = `<p class="text-capitalize text-warning card-text text-center">${stat} exceeds ${maxStatValue}</p><p class="text-capitalize text-warning card-text text-center">please reduce it</p>`;
+      warningEl.innerHTML = `
+      <p class="text-capitalize text-warning card-text text-center">${stat} exceeds ${maxStatValue}</p>
+      <p class="text-capitalize text-warning card-text text-center">please reduce it</p>
+      `;
+      
       return;
     }
   }
