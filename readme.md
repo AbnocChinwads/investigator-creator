@@ -20,16 +20,22 @@ The app is intended to allow a character with a stat block to be created.
 
 ## How To Run
 
-1. Install python3 - instructions for you OS can be found [here](https://www.python.org/downloads/)
-2. Copy the repository URL (https://github.com/AbnocChinwads/investigator-creator.git) from GitHub.
-3. Open your terminal/command prompt (either within your IDE or on your machine).
-4. Run `git clone https://github.com/AbnocChinwads/investigator-creator.git`
+There are multiple ways to run the project:
 
-If you use the GitHub CLI you can instead run: `gh repo clone AbnocChinwads/investigator-creator`
+- You can go to the [Github pages link](https://abnocchinwads.github.io/investigator-creator/)
 
-5. Navigate to the directory `cd investigator-creator`
-6. In your IDEs terminal type `python3 -m http.server 8000` (the port number doesn't have to be 8000; it just needs to be an available port. 8000 is commonly used for local development.)
---> In your browser open a new tab and go to `localhost:8000`
+- You can download the files and run them locally:
+    1. Install python3 - instructions for you OS can be found [here](https://www.python.org/downloads/)
+    2. Copy the repository URL (https://github.com/AbnocChinwads/investigator-creator.git) from GitHub.
+    3. Open your terminal/command prompt (either within your IDE or on your machine).
+    4. Run `git clone https://github.com/AbnocChinwads/investigator-creator.git`
+
+    - If you use the GitHub CLI you can instead run: `gh repo clone AbnocChinwads/investigator-creator`
+
+    5. Navigate to the directory `cd investigator-creator`
+    6. In your IDEs terminal type `python3 -m http.server 8000` (on Linux) `py -m http.server 8000` (on Windows) 
+        - the port number doesn't have to be 8000; it just needs to be an available port. 8000 is commonly used for local development.
+    --> In your browser open a new tab and go to `localhost:8000`
 
 ## How To Use
 
