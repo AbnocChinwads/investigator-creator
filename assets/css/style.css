@@ -1,0 +1,9 @@
+.form-switch .form-check-input {
+  background-image: url(../img/sun-fill.svg);
+}
+
+.form-switch .form-check-input:checked {
+  background-image: url(../img/moon-fill.svg);
+  background-color: var(--bs-secondary-color);
+  border-color: var(--bs-secondary-color);
+}

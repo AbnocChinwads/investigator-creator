@@ -18,3 +18,8 @@ I initially used a for...in loop inside a while loop, intending for it to finish
 After discovering this is what was happening I removed the inner loop.
 I then didn't want the while to loop infinitely if somehow all stats were at or near the max value with points left to spend, for which I checked with ChatGPT for a solution to this concern as I didn't know what to google, it then suggested using .some().
 Having used this once before in a private project it made sense, so I added a check to prevent the infinite loop using .some().
+
+## 10 November 2026 - Adapting Bootstrap's colour mode switch
+
+I prefer viewing pages and apps in dark mode, but understand some users prefer to view in light mode. Having built a [dark mode switch](https://github.com/AbnocChinwads/dark-mode-switch) before, I updated it from Bootstrap 4 to Bootstrap 5.3 using the colour-mode toggler from the current Bootstrap documentation as the base, and adapted it to work with a switch rather than a button group.
+I removed the button event handling and changed it to switch event handling.
